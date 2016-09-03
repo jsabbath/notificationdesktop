@@ -1,0 +1,105 @@
+<!doctype html>
+<html>
+<head>
+ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+body { background-color:#fafafa; font-family:'Roboto';}
+h1 { margin:150px auto 30px auto;}
+</style>
+</head>
+<body>
+<form action="" style="margin-top:50px; text-align:center;">
+
+  <div class="container">
+    <div class="col-xs-12 col-md-4">
+      <div class="form-group row">
+        <h2 class="text-center">Notificación DESKTOP</h2>
+      </div>
+      <div class="form-group row">
+        <label for="example-text-input" class="col-xs-2 col-form-label">Imagen</label>
+        <div class="col-xs-10">
+          <input class="form-control" type="url" id="imagen" placeholder="Ingresa la URL" data-toggle="tooltip" title="Hooray!" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-week-input" class="col-xs-2 col-form-label">Titulo</label>
+        <div class="col-xs-10">
+          <input class="form-control" type="text" id="title" placeholder="Ingresa el titulo de la notificación" required>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="example-time-input" class="col-xs-2 col-form-label">Mensaje</label>
+        <div class="col-xs-10">
+          <textarea class="form-control" type="time" id="message" placeholder="Ingresa el contenido del mensaje">
+          </textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-xs-10">
+          <button type="submit" class="btn btn-success"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Crear Notificación</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="easyNotify.js"></script>
+<script>
+  //declarando las hora para notificaciones
+  var fecha =  new Date();
+  var hora = fecha.getHours();
+  var minutos = fecha.getMinutes();
+  var segundos = fecha.getSeconds();
+  
+  //aquí se hace lo 'importante'
+  if(hora<10){hora='0'+hora}
+  if(minutos<10){minutos='0'+minutos}
+  if(segundos<10){segundos='0'+segundos}
+
+  //Agrupando a la variable
+  var horacompleta = ' - A las: '+hora+':'+minutos;
+
+  $("form").submit(function(event) {
+    event.preventDefault();
+
+    var options = {
+      title: $("#title").val()+horacompleta,
+      options: {
+        body: $("#message").val(),
+        icon: $("#imagen").val(),
+        lang: 'en-US'
+      }
+    };
+
+    console.log(options);
+    $("#easyNotify").easyNotify(options);
+  });
+
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
+</body>
+</html>
